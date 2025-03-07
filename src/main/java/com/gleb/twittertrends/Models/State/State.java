@@ -1,27 +1,27 @@
     package com.gleb.twittertrends.Models.State;
 
-    import java.util.Arrays;
+    import java.util.ArrayList;
 
     public class State {
 
-        private Polygon[] polygons;
+        private ArrayList<Polygon> polygons;
 
-        public State(Polygon[] borderCoordinates){
+        public State(ArrayList<Polygon> borderCoordinates){
             setPolygons(borderCoordinates);
         }
 
-        public Polygon[] getPolygons() {
+        public ArrayList<Polygon> getPolygons() {
             return polygons;
         }
 
-        public void setPolygons(Polygon[] polygons) {
+        public void setPolygons(ArrayList<Polygon> polygons) {
             this.polygons = polygons;
         }
 
         @Override
         public String toString() {
             return "State{" +
-                    "polygons=" + Arrays.toString(polygons) +
+                    "polygons=" + polygons +
                     '}';
         }
     }

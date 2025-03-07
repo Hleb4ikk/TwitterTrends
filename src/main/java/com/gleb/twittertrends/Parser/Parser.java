@@ -32,82 +32,55 @@ public class Parser {
     public Country parse() {
         HashMap<String, State> map = new HashMap<>();
         try {
-
             Object object = new JSONParser().parse(fileReader);
-            if(object instanceof HashMap<?, ?>){
-
-                if(!((HashMap<?, ?>) object).isEmpty()){
-
+            if (object instanceof HashMap<?, ?>) {
+                if (!((HashMap<?, ?>) object).isEmpty()) {
                     ((HashMap<?, ?>) object).forEach((key, list1) -> {
-
-                        if(key instanceof String){
-                            System.out.println(key);
+                        String abbr = "";
+                        State state;
+                        if (key instanceof String) {
+                            abbr = (String)key;
                         }
-                        if(list1 instanceof ArrayList<?>){
-
-
-                            if(!((ArrayList<?>) list1).isEmpty()){
-
+                        ArrayList<Polygon> state_parts = new ArrayList<>();
+                        if (list1 instanceof ArrayList<?>) {
+                            if (!((ArrayList<?>) list1).isEmpty()) {
                                 ((ArrayList<?>) list1).forEach((list2) -> {
+                                    ArrayList<ArrayList<Double>> coordinates = new ArrayList<>();
+                                    if (list2 instanceof ArrayList<?>) {
+                                        if (!((ArrayList<?>) list2).isEmpty()) {
+                                            ((ArrayList<?>) list2).forEach((obj) -> {
+                                                ArrayList<Double> coordinate = new ArrayList<>();
+                                                if (obj instanceof ArrayList<?>) {
 
-                                    if(list2 instanceof ArrayList<?>){
+                                                    if (!((ArrayList<?>) obj).isEmpty()) {
 
-                                        if(!((ArrayList<?>) list2).isEmpty()) {
-
-                                            ((ArrayList<?>) list2).forEach((list3) -> {
-
-                                                if(list3 instanceof ArrayList<?>){
-
-                                                    if(!((ArrayList<?>) list3).isEmpty()) {
-                                                        System.out.print("[");
-                                                        ((ArrayList<?>) list3).forEach((expr) -> {
-
-                                                            if(expr instanceof ArrayList<?>){
-
-                                                                if(!((ArrayList<?>) expr).isEmpty()){
-                                                                    System.out.print("[");
-                                                                    ((ArrayList<?>) expr).forEach((value) -> {
-
-                                                                        if(value instanceof Double){
-
-                                                                            System.out.print(value + " ");
-
-                                                                        }
-
-                                                                    });
-                                                                    System.out.print("],\n");
-                                                                }
-
-                                                            }
-                                                            else if (expr instanceof Double){
-                                                                System.out.print(expr + " ");
+                                                        ((ArrayList<?>) obj).forEach((obj1) -> {
+                                                            if (obj1 instanceof Double) {
+                                                                coordinate.add((Double) obj1);
                                                             }
                                                         });
-                                                        System.out.print("],\n");
                                                     }
 
                                                 }
-
+                                                coordinates.add(coordinate);
                                             });
 
                                         }
 
                                     }
-
+                                    state_parts.add(new Polygon(coordinates));
                                 });
-
                             }
-
+            
                         }
-
+                         state = new State(state_parts);
+                        map.put(abbr, state);
                     });
-
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return new Country(map);
     }
 }
