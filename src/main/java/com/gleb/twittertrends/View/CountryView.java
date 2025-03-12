@@ -16,7 +16,7 @@ public class CountryView extends Group {
         StateView[] stateViews = new StateView[pairs.size()];
         int i = 0;
         for(Map.Entry<String, State> pair : pairs) {
-            stateViews[i] = new StateView(pair.getValue(), Color.color(0, 0, 0));
+            stateViews[i] = new StateView(pair.getKey(), pair.getValue(), Color.YELLOW);
             i++;
         }
         super.getChildren().addAll(stateViews);

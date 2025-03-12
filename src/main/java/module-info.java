@@ -2,6 +2,7 @@ module com.gleb.twittertrends {
     requires javafx.controls;
     requires javafx.fxml;
     requires json.simple;
+    requires jdk.unsupported.desktop;
 
 
     opens com.gleb.twittertrends to javafx.fxml;
