@@ -3,8 +3,6 @@ package com.gleb.twittertrends.Parser;
 import com.gleb.twittertrends.Models.Tweet.Coordinates;
 import com.gleb.twittertrends.Models.Tweet.Tweet;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -27,8 +25,8 @@ public class TweetsParser extends Parser<ArrayList<Tweet>>{
                 if (parts.length == 4) {
                     // Обработка координат
                     String[] coords = parts[0].replaceAll("[\\[\\]]", "").split(",");
-                    double x = Double.parseDouble(coords[0].trim());
-                    double y = Double.parseDouble(coords[1].trim());
+                    double x = Double.parseDouble(coords[1].trim());
+                    double y = Double.parseDouble(coords[0].trim());
                     Coordinates coordinates = new Coordinates(x, y);
 
                     // Обработка даты

@@ -12,7 +12,6 @@ public class StateView extends Group{
     public StateView(String name, State state, Color color){
         Polygon[] polygons = new Polygon[state.getPolygons().size()];
 
-
         for(int i = 0; i < state.getPolygons().size(); i++){
             polygons[i] = new Polygon();
             polygons[i].getPoints().addAll(CentralizePoints(state.getPolygons().get(i).to1DimensionArray()));

@@ -37,7 +37,6 @@ public class CountryParser extends Parser<Country>{
                                             ((ArrayList<?>) list2).forEach((obj) -> {
                                                 ArrayList<Double> coordinate = new ArrayList<>();
                                                 if (obj instanceof ArrayList<?>) {
-
                                                     if (!((ArrayList<?>) obj).isEmpty()) {
 
                                                         ((ArrayList<?>) obj).forEach((obj1) -> {
@@ -46,18 +45,14 @@ public class CountryParser extends Parser<Country>{
                                                             }
                                                         });
                                                     }
-
                                                 }
                                                 coordinates.add(coordinate);
                                             });
-
                                         }
-
                                     }
                                     state_parts.add(new Polygon(coordinates));
                                 });
                             }
-            
                         }
                          state = new State(state_parts);
                         map.put(abbr, state);
