@@ -38,9 +38,9 @@ public class CountryView extends Group {
         HashMap<String, Double> normalizedValues = normalizeScores(avgScoreByStates);
         if (avgScoreByStates.containsKey(key)) {
 
-            if (avgScoreByStates.get(key) < 0) {
+            if (avgScoreByStates.get(key) < -0.04) {
                 return Color.color(0, 0, 1 - normalizedValues.get(key)); // Синий цвет
-            } else if(avgScoreByStates.get(key) > 0){
+            } else if(avgScoreByStates.get(key) > 0.04){
                 return Color.color(1, 1-normalizedValues.get(key), 0); // Жёлтый цвет
             } else {
                 return Color.color(1, 1, 1);

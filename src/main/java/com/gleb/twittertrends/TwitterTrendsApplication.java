@@ -6,6 +6,7 @@ import com.gleb.twittertrends.Models.Tweet.Tweet;
 import com.gleb.twittertrends.Parser.CountryParser;
 import com.gleb.twittertrends.Parser.SentimentParser;
 import com.gleb.twittertrends.Parser.TweetsParser;
+import com.gleb.twittertrends.SentimentAnalyzer.SentimentAnalyzer;
 import com.gleb.twittertrends.TweetAnalyzer.TweetAnalyzer;
 import com.gleb.twittertrends.View.CountryView;
 import javafx.application.Application;
@@ -24,7 +25,7 @@ public class TwitterTrendsApplication extends Application {
 
         ArrayList<Tweet> tweets = new ArrayList<>();
 
-        final String[] tweetsPrefix = new String[]{"family_"}; //"cali_", "family_", "football_", "high_school_", "movie_", "shopping_", "snow_", "texas_", "weekend_"
+        final String[] tweetsPrefix = new String[]{"cali_"}; //"cali_", "family_", "football_", "high_school_", "movie_", "shopping_", "snow_", "texas_", "weekend_"
 
         for(String zone : tweetsPrefix){
             tweets.addAll(new TweetsParser("src/main/resources/com/gleb/" + zone + "tweets2014.txt").parse());
@@ -32,8 +33,8 @@ public class TwitterTrendsApplication extends Application {
 
         ArrayList<Sentiment> sentiments = new SentimentParser("src/main/resources/com/gleb/sentiments.csv").parse();
 
-        HashMap<String, ArrayList<Double>> groupedTweets = TweetAnalyzer.groupTweetsScores(tweets, sentiments, country);
-        HashMap<String, Double> avgScoreByStates = TweetAnalyzer.calculateAvarageScoreOfTweets(groupedTweets);
+        HashMap<String, ArrayList<Tweet>> groupedTweets = TweetAnalyzer.groupTweetsByState(tweets, country);
+        HashMap<String, Double> avgScoreByStates = SentimentAnalyzer.calculateAverageSentiments(groupedTweets, sentiments);
         CountryView countryView = new CountryView(country, avgScoreByStates);
         Scene scene = new Scene(countryView, 1280, 720);
         stage.setTitle("Twitter Trends");
